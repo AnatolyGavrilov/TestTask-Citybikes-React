@@ -1,17 +1,33 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNetworks } from '../services/dataAPI';
+import { fetchNetworks, fetchUsers } from '../services/dataAPI';
 
 const Networks = () => {
     const dispath = useDispatch()
-    useEffect(()=>{
-        fetchNetworks().then(data => dispath({type:"FETCH_NETWORKS", payload:data}))
-    },[])
-    let networks = useSelector(state => state.networks)
+    const networks = useSelector(state => state.networks)
+    // console.log(networks.keys())
+    // useEffect(()=>{
+    //     fetchNetworks().then(data => dispath({type:"FETCH_NETWORKS", payload:data}))
+    // },[])
     console.log(networks.networks)
+    const fetchReduxNetworks = () => {
+        fetch('http://api.citybik.es/v2/networks')
+            .then(response => response.json())
+            .then(json => dispath({type:"FETCH_NETWORKS",payload:json}))
+    }
+    useEffect(()=>{
+        fetchReduxNetworks()
+    },[])
     return (
         <div>
-           {/* {networks.networks.map(network => <div>1</div>)} */}
+            {Object.keys(networks).length > 0 ?
+                <div>
+                    {networks.networks.map(network => <div>{network.id}</div>)}
+                </div>:
+                <div>
+y
+                </div>
+            }
         </div>
     );
 };

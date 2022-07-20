@@ -1,4 +1,7 @@
+import { applyMiddleware } from "redux";
 import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
 const defaultState = {
     networks:[]
@@ -13,4 +16,4 @@ const reducer = (state = defaultState, action) => {
     }
 }
 
-export const store = createStore(reducer)
+export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
