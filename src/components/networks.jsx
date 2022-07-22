@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNetworks} from '../services/dataAPI';
-// import clases from "./networks.module.scss";
+import clases from "./networks.module.scss";
 
 const Networks = () => {
     const dispath = useDispatch()
@@ -11,7 +11,7 @@ const Networks = () => {
         fetchNetworks().then(data => dispath({type:"FETCH_NETWORKS", payload:data}))
     },[])
     return (
-        <div>
+        <div className={clases.container}>
             {Object.keys(networks).length > 0 ?
                 <div>
                     {networks.networks.map(network => 
