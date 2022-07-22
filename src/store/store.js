@@ -1,18 +1,11 @@
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { networksReducer } from "./redusers/networksReduser";
+import { stationsReducer } from "./redusers/stationsReduser";
 
+const rootReducer = combineReducers({
+    networks:networksReducer,
+    stations:stationsReducer
+})
 
-const defaultState = {
-    networks:[]
-}
-
-const reducer = (state = defaultState, action) => {
-    switch (action.type){
-        case "FETCH_NETWORKS":
-            return {...state, networks:action.payload}
-        default:
-            return state
-    }
-}
-
-export const store = createStore(reducer, composeWithDevTools())
+export const store = createStore(rootReducer, composeWithDevTools())
