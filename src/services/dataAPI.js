@@ -7,5 +7,6 @@ export const fetchNetworks = async () => {
 
 export const fetchOneNetwork = async (id) => {
     const {data} = await $host.get('networks/' + id)
+    // console.log(data)
     return data
 }
