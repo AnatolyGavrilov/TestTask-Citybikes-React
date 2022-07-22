@@ -7,6 +7,7 @@ const Networks = () => {
     const dispath = useDispatch()
     const networks = useSelector(state => state.networks.networks)
     const stations = useSelector(state => state.stations.stations)
+
     useEffect(()=>{
         fetchNetworks().then(data => dispath({type:"FETCH_NETWORKS", payload:data}))
     },[])
@@ -38,12 +39,12 @@ const Networks = () => {
 y
                 </div>
             }
-            {/* {Object.keys(stations).length > 0 ?
+            {Object.keys(stations).length > 0 ?
                 <div>
-                    {stations.stations.map(station => 
+                    {stations.network.stations.map(station => 
                         <div
                             key={station.id}
-                            onClick={dispath()}
+                            
                         >
                             {station.id}
                         </div>
@@ -52,7 +53,7 @@ y
             <div>
 y
             </div>
-            } */}
+            }
         </div>
     );
 };
