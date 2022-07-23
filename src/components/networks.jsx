@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNetworks, fetchOneNetwork} from '../services/dataAPI';
 import clases from "./networks.module.scss";
+import likeChoose from "../assets/icons/like-choose.png"
+import likeBasic from "../assets/icons/like-basic.png"
 
 const Networks = () => {
     const dispath = useDispatch()
@@ -30,16 +32,12 @@ const Networks = () => {
         }
     },[networks.networks])
 
-    function jest(networkId){
-        console.log(networkId)
-        fetchOneNetwork("bycyklen").then(data=>dispath({type:"CHOOSE_NETWORK", payload:data}))
-    }
     return (
         <div className={clases.container}>
             {Object.keys(networks).length > 0 ?
                 <div>
                     {networks.networks.map(network => 
-                        <div key={network.id}>
+                        <div className={clases.networkWrapper} key={network.id}>
                             <div
                                 className={clases.networkItem}
                                 // key={network.id}
@@ -57,9 +55,13 @@ const Networks = () => {
                                         check(network.id) 
                                         ? 
                                         <div
-                                        className={clases.pad}
+                                            className={clases.pad}
                                         >
-                                            icon dislike
+                                            <img   
+                                                className={clases.like}
+                                                src={likeChoose}
+                                                alt="exit icon"
+                                            />
                                         </div> 
                                         : 
                                         <div 
@@ -76,7 +78,13 @@ const Networks = () => {
                                                     }
                                                     }
                                                 }
-                                        >icon like 1</div>
+                                        >
+                                            <img   
+                                                className={clases.like}
+                                                src={likeBasic}
+                                                alt="exit icon"
+                                            />
+                                        </div>
                                         }                                        
                                     </div>
                                     :
@@ -95,7 +103,11 @@ const Networks = () => {
                                                 }
                                             }
                                     >
-                                        icon like 2
+                                        <img   
+                                            className={clases.like}
+                                            src={likeBasic}
+                                            alt="exit icon"
+                                        />
                                     </div>
                                 }
                             </div>
