@@ -14,7 +14,6 @@ const Networks = () => {
     const check = (networkId) => {
         let result = false 
         likedNetworks.map(likedNetwork => {
-            console.log(networkId, likedNetwork)
             if (networkId === likedNetwork) {
                 result = true                
             }
@@ -56,6 +55,15 @@ const Networks = () => {
                                         ? 
                                         <div
                                             className={clases.pad}
+                                            onClick={
+                                                ()=>{
+                                                    dispath({type:"DISLIKE_NETWORK", payload:network.id})
+                                                    let arrNetworks = localStorage.likedNetworks.split(',')
+                                                    const filterArrNetworks = arrNetworks.filter(likedNetwork => likedNetwork !== network.id)
+                                                    console.log(filterArrNetworks)
+                                                    localStorage.setItem("likedNetworks", filterArrNetworks)
+                                                    }
+                                                }
                                         >
                                             <img   
                                                 className={clases.like}
