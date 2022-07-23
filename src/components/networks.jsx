@@ -27,13 +27,33 @@ const Networks = () => {
             {Object.keys(networks).length > 0 ?
                 <div>
                     {networks.networks.map(network => 
-                        <div
-                            key={network.id}
-                            onClick={() => {
-                                fetchOneNetwork(network.id).then(data=>dispath({type:"CHOOSE_NETWORK", payload:data}))
-                            }}
-                        >
-                            {network.id}
+                        <div key={network.id}>
+                            <div
+                                className={clases.networkItem}
+                                // key={network.id}
+                                onClick={() => {
+                                    fetchOneNetwork(network.id).then(data=>dispath({type:"CHOOSE_NETWORK", payload:data}))
+                                }}
+                            >
+                                {network.id}
+                            </div>
+                            <div 
+                                className={clases.likeBasic}
+                                onClick={
+                                    ()=>{ 
+                                        dispath({type:"LIKE_NETWORK", payload:network.id})
+                                        if (localStorage.likedNetworks){
+                                            let arrNetworks = localStorage.likedNetworks.split()
+                                            arrNetworks.push(network.id)
+                                            localStorage.setItem("likedNetworks", arrNetworks)
+                                        }
+                                        else{
+                                            localStorage.setItem("likedNetworks", network.id)
+                                        }
+                                    }
+                                }
+                            >
+                            </div>
                         </div>
                     )}
                 </div>:
