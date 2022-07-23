@@ -1,6 +1,12 @@
+let arrLikedNetworks
+
+if (localStorage.likedNetworks) {
+    arrLikedNetworks = localStorage.likedNetworks.split(',')
+}
+
 const defaultState = {
     networks:[],
-    likedNetowrks:localStorage.likedNetworks || []
+    likedNetowrks:arrLikedNetworks || []
 }
 
 export const networksReducer = (state = defaultState, action) => {

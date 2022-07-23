@@ -7,6 +7,18 @@ const Networks = () => {
     const dispath = useDispatch()
     const networks = useSelector(state => state.networks.networks)
     const stations = useSelector(state => state.stations.stations)
+    const likedNetworks = useSelector(state => state.networks.likedNetowrks)
+    
+    const check = (networkId) => {
+        let result = false 
+        likedNetworks.map(likedNetwork => {
+            console.log(networkId, likedNetwork)
+            if (networkId === likedNetwork) {
+                result = true                
+            }
+        })
+        return result
+    }
 
     useEffect(()=>{
         fetchNetworks().then(data => dispath({type:"FETCH_NETWORKS", payload:data}))
@@ -37,22 +49,55 @@ const Networks = () => {
                             >
                                 {network.id}
                             </div>
-                            <div 
-                                className={clases.likeBasic}
-                                onClick={
-                                    ()=>{ 
-                                        dispath({type:"LIKE_NETWORK", payload:network.id})
-                                        if (localStorage.likedNetworks){
-                                            let arrNetworks = localStorage.likedNetworks.split()
-                                            arrNetworks.push(network.id)
-                                            localStorage.setItem("likedNetworks", arrNetworks)
-                                        }
-                                        else{
-                                            localStorage.setItem("likedNetworks", network.id)
-                                        }
-                                    }
+                            <div>
+                                {
+                                    likedNetworks.length > 0 ? 
+                                    <div>
+                                        {
+                                        check(network.id) 
+                                        ? 
+                                        <div
+                                        className={clases.pad}
+                                        >
+                                            icon dislike
+                                        </div> 
+                                        : 
+                                        <div 
+                                            onClick={
+                                                ()=>{
+                                                    dispath({type:"LIKE_NETWORK", payload:network.id})
+                                                    if (localStorage.likedNetworks){
+                                                        let arrNetworks = localStorage.likedNetworks.split()
+                                                        arrNetworks.push(network.id)
+                                                        localStorage.setItem("likedNetworks", arrNetworks)
+                                                    }
+                                                    else{
+                                                        localStorage.setItem("likedNetworks", network.id)
+                                                    }
+                                                    }
+                                                }
+                                        >icon like 1</div>
+                                        }                                        
+                                    </div>
+                                    :
+                                    <div
+                                        onClick={
+                                            ()=>{
+                                                    dispath({type:"LIKE_NETWORK", payload:network.id})
+                                                    if (localStorage.likedNetworks){
+                                                        let arrNetworks = localStorage.likedNetworks.split()
+                                                        arrNetworks.push(network.id)
+                                                        localStorage.setItem("likedNetworks", arrNetworks)
+                                                    }
+                                                    else{
+                                                        localStorage.setItem("likedNetworks", network.id)
+                                                    }
+                                                }
+                                            }
+                                    >
+                                        icon like 2
+                                    </div>
                                 }
-                            >
                             </div>
                         </div>
                     )}
