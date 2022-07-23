@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNetworks, fetchOneNetwork} from '../services/dataAPI';
 import clases from "./networks.module.scss";
@@ -11,16 +11,17 @@ const Networks = () => {
     useEffect(()=>{
         fetchNetworks().then(data => dispath({type:"FETCH_NETWORKS", payload:data}))
     },[])
+    
     useEffect(()=>{
         if (Object.keys(networks).length > 0 ){
-            // console.log(networks.networks[0].id)
-            // fetchOneNetwork(networks.networks[0].id).then(data =>{
-            //     data.network.stations.map(station =>{dispath({type:"CHOOSE_NETWORK", payload:station.name})})
-            // })
             fetchOneNetwork(networks.networks[0].id).then(data => dispath({type:"CHOOSE_NETWORK", payload:data}))
-            // fetchOneNetwork(networks.networks[0].id).then(data=>console.log(data))
         }
-    },[networks])
+    },[networks.networks])
+
+    function jest(networkId){
+        console.log(networkId)
+        fetchOneNetwork("bycyklen").then(data=>dispath({type:"CHOOSE_NETWORK", payload:data}))
+    }
     return (
         <div className={clases.container}>
             {Object.keys(networks).length > 0 ?
@@ -28,9 +29,10 @@ const Networks = () => {
                     {networks.networks.map(network => 
                         <div
                             key={network.id}
-                            // onClick={dispath()}
+                            onClick={() => {
+                                fetchOneNetwork(network.id).then(data=>dispath({type:"CHOOSE_NETWORK", payload:data}))
+                            }}
                         >
-                            {/* {console.log(network.id)} */}
                             {network.id}
                         </div>
                     )}
@@ -44,7 +46,6 @@ y
                     {stations.network.stations.map(station => 
                         <div
                             key={station.id}
-                            
                         >
                             {station.id}
                         </div>
