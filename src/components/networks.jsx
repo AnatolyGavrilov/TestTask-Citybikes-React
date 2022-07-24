@@ -11,7 +11,7 @@ const Networks = () => {
     const stations = useSelector(state => state.stations.stations)
     const likedNetworks = useSelector(state => state.networks.likedNetowrks)
     const choosenNetwork = useSelector(state => state.stations.choosenNetwork)
-    
+    console.log(stations.network)
     const check = (networkId) => {
         let result = false 
         likedNetworks.map(likedNetwork => {
@@ -35,6 +35,7 @@ const Networks = () => {
     return (
         <div>
             {choosenNetwork.length ? <div>Выбранная станция:{choosenNetwork}</div> : <div></div>}
+            {stations.network ? <div>Колличество станций в выбранной сети:{stations.network.stations.length}</div>:<div>2</div>}
             <div className={clases.container}>
             {Object.keys(networks).length > 0 ?
                 <div>
