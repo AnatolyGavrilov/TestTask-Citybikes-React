@@ -1,3 +1,5 @@
+Begore use "npm start", you need to use "npm install"
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
