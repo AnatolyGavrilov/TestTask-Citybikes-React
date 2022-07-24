@@ -1,4 +1,4 @@
-Begore use "npm start", you need to use "npm install"
+Before use "npm start", you need to use "npm install"
 
 # Getting Started with Create React App
 
