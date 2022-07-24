@@ -4,6 +4,7 @@ import { fetchNetworks, fetchOneNetwork} from '../services/dataAPI';
 import clases from "./networks.module.scss";
 import likeChoose from "../assets/icons/like-choose.png"
 import likeBasic from "../assets/icons/like-basic.png"
+import preloader from "../assets/icons/preloader.png"
 
 const Networks = () => {
     const dispath = useDispatch()
@@ -34,8 +35,28 @@ const Networks = () => {
 
     return (
         <div>
-            {choosenNetwork.length ? <div>Выбранная станция:{choosenNetwork}</div> : <div></div>}
-            {stations.network ? <div>Колличество станций в выбранной сети:{stations.network.stations.length}</div>:<div>2</div>}
+            {choosenNetwork.length ? 
+                <div>Выбранная станция:{choosenNetwork}</div> 
+                : 
+                <div>
+                    <img   
+                        className={clases.preloader}
+                        src={preloader}
+                        alt="exit icon"
+                    />
+                </div>
+            }
+            {stations.network ?
+                <div>Колличество станций в выбранной сети:{stations.network.stations.length}</div>
+                :
+                <div>
+                    <img   
+                        className={clases.preloader}
+                        src={preloader}
+                        alt="exit icon"
+                    />
+                </div>
+            }
             <div className={clases.container}>
             {Object.keys(networks).length > 0 ?
                 <div>
@@ -127,7 +148,11 @@ const Networks = () => {
                     )}
                 </div>:
                 <div>
-y
+                    <img   
+                        className={clases.preloader}
+                        src={preloader}
+                        alt="exit icon"
+                    />
                 </div>
             }
             {Object.keys(stations).length > 0 ?
@@ -140,9 +165,13 @@ y
                         </div>
                     )}
                 </div>:
-            <div>
-y
-            </div>
+                <div>
+                    <img   
+                        className={clases.preloader}
+                        src={preloader}
+                        alt="exit icon"
+                    />
+                </div>
             }
             </div>
         </div>
